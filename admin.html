@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="crud realizado con vanilla js" />
+    <meta name="keywords" content="crud, vanilla js" />
+    <meta name="author" content="Abel Cordoba" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <title>Práctica CRUD</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">CRUD</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="admin.html"
+                  >Admin</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <section class="my-5">
+        <h1 class="display-3 text-center text-primary">
+          Administrar productos
+        </h1>
+        <hr />
+        <form>
+          <div class="mb-3">
+            <label for="codigo" class="form-label">Código</label>
+            <input
+              type="text"
+              class="form-control"
+              id="codigo"
+              placeholder="123"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="producto" class="form-label">Producto</label>
+            <input
+              type="text"
+              class="form-control"
+              id="producto"
+              placeholder="Ej: Iron Man"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cantidad"
+              placeholder="2"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="URL" class="form-label">URL</label>
+            <input
+              type="text"
+              class="form-control"
+              id="URL"
+              placeholder="https://127.0.0.1:8000/image.jpg"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </section>
+    </main>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>
