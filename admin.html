@@ -54,7 +54,12 @@
               class="form-control"
               id="codigo"
               placeholder="123"
+              maxlength="3"
+              required
             />
+            <div class="invalid-feedback">
+              Debe ingresar un código alfanumerico
+            </div>
           </div>
           <div class="mb-3">
             <label for="producto" class="form-label">Producto</label>
@@ -63,11 +68,19 @@
               class="form-control"
               id="producto"
               placeholder="Ej: Iron Man"
+              maxlength="30"
+              required
             />
           </div>
           <div class="mb-3">
             <label for="descripcion" class="form-label">Descripción</label>
-            <textarea class="form-control" id="descripcion" rows="3"></textarea>
+            <textarea
+              class="form-control"
+              id="descripcion"
+              rows="3"
+              maxlength="50"
+              required
+            ></textarea>
           </div>
           <div class="mb-3">
             <label for="cantidad" class="form-label">Cantidad</label>
@@ -76,6 +89,8 @@
               class="form-control"
               id="cantidad"
               placeholder="2"
+              maxlength="3"
+              required
             />
           </div>
           <div class="mb-3">
@@ -85,10 +100,15 @@
               class="form-control"
               id="URL"
               placeholder="https://127.0.0.1:8000/image.jpg"
+              maxlength="200"
+              required
             />
           </div>
           <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
+        <div class="alert alert-danger my-3 d-none" role="alert">
+          Debe completar todos los campos requeridos
+        </div>
       </section>
     </main>
     <script src="js/bootstrap.min.js"></script>
