@@ -87,8 +87,27 @@ function crearProducto() {
   );
 
   console.log(productoNuevo);
-
   listaProductos.push(productoNuevo);
-
   console.log(listaProductos);
+  //limpiar el formulario
+  limpiarFormulario();
+  //guardar el array de productos dentro dee localStorage
+  guadarLocalStorage()
+}
+
+function limpiarFormulario() {
+  //limpiamos los values del formulario
+  formProducto.reset();
+  //resetear las clases de los input
+  campoCodigo.className = 'form-control';
+  campoProducto.className = 'form-control';
+  campoDescripcion.className = 'form-control';
+  campoCantidad.className = 'form-control';
+  campoURL.className = 'form-control';
+  //resetear la varibale bandera o booleana para el caso de modificarProducto
+  productoExistente = false;
+}
+
+function guadarLocalStorage(){
+  localStorage.setItem("arrayProductosKey", JSON.stringify(listaProductos))
 }
