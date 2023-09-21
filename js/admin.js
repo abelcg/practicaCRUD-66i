@@ -18,7 +18,9 @@ let formProducto = document.getElementById('formProducto');
 
 let productoExistente = false; //variable bandera: si el productoExistente es false quiero crearlo,
 //si  productoExistente es true quiero modificar el producto existente
-let listaProductos = [];
+
+//Si hay productos el localStorage quiero guardarlos en listaProductos si no q sea un array vacio
+let listaProductos = JSON.parse(localStorage.getItem('arrayProductosKey')) || [];
 
 //asociar un evento a cada elemento obtenido
 
@@ -49,6 +51,9 @@ campoURL.addEventListener('blur', () => {
 
 formProducto.addEventListener('submit', guardarProducto);
 
+//llamo a carga inicial: so tengo productos en localStorage que lo muestre en la tabla de productos
+cargaInicial();
+ 
 //aquí empieza la lógica del CRUD
 
 function guardarProducto(e) {
@@ -92,7 +97,9 @@ function crearProducto() {
   //limpiar el formulario
   limpiarFormulario();
   //guardar el array de productos dentro dee localStorage
-  guadarLocalStorage()
+  guadarLocalStorage();
+  //cargar el producto en la tabla
+  crearFila(productoNuevo);
 }
 
 function limpiarFormulario() {
@@ -108,6 +115,30 @@ function limpiarFormulario() {
   productoExistente = false;
 }
 
-function guadarLocalStorage(){
-  localStorage.setItem("arrayProductosKey", JSON.stringify(listaProductos))
+function guadarLocalStorage() {
+  localStorage.setItem('arrayProductosKey', JSON.stringify(listaProductos));
+}
+
+function crearFila(producto) {
+  let tablaProducto = document.querySelector('#tablaProducto');
+  //usamos el operador de asignación por adición para concatenar con lo que ya tengo de contenido
+  tablaProducto.innerHTML += `<tr>
+  <td>${producto.codigo}</td>
+  <td>${producto.producto}</td>
+  <td>${producto.descripcion}</td>
+  <td>${producto.cantidad}</td>
+  <td>${producto.url}</td>
+  <td>
+  <button class='btn btn-warning mb-3' onclick='prepararEdicionProducto()'>Editar</button>
+  <button class='btn btn-danger mb-3' onclick='borrarProducto()'>Eliminar</button>
+  </td>
+</tr>`;
+}
+
+function cargaInicial(){
+  if (listaProductos.length > 0) {
+    //crear filas
+    listaProductos.map((itemProducto) => crearFila(itemProducto));
+    //listaProductos.forEach((itemProducto) => crearFila(itemProducto));
+  }
 }
