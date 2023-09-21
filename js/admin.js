@@ -98,6 +98,12 @@ function crearProducto() {
   limpiarFormulario();
   //guardar el array de productos dentro dee localStorage
   guadarLocalStorage();
+  //mostrar el cartel al usuario
+  Swal.fire(
+    'Producto creado!',
+    'El producto fue creado correctamente!',
+    'success'
+  );
   //cargar el producto en la tabla
   crearFila(productoNuevo);
 }
