@@ -140,7 +140,7 @@ function crearFila(producto) {
   <td>${producto.url}</td>
   <td>
   <button class='btn btn-warning mb-3' onclick='prepararEdicionProducto("${producto.codigo}")'>Editar</button>
-  <button class='btn btn-danger mb-3' onclick='borrarProducto()'>Eliminar</button>
+  <button class='btn btn-danger mb-3' onclick='borrarProducto("${producto.codigo}")'>Eliminar</button>
   </td>
 </tr>`;
 }
@@ -216,4 +216,28 @@ function modificarProducto() {
 function borrarTabla() {
   let tablaProducto = document.querySelector('#tablaProducto');
   tablaProducto.innerHTML = '';
+}
+
+window.borrarProducto = function (codigo){
+  //opción 1: encontar la posición o el indice del elemento del array y borrarlo
+  //1ero: encontrar el indice con findIndex y usar splice(indiceEncontrado, 1)
+  
+  //opción 2: usando filter
+
+  let nuevaListaProductos = listaProductos.filter((itemProducto)=> itemProducto.codigo !== codigo)
+  console.log(nuevaListaProductos);
+  //actualizar el array original y guardar en localStorage
+  listaProductos = nuevaListaProductos;
+  guadarLocalStorage();
+
+  //actualizar la tabla
+  borrarTabla();
+  cargaInicial();
+
+  //mostrar cartel al usuario
+  Swal.fire(
+    'Producto eliminado!',
+    'El producto fue eliminado correctamente!',
+    'success'
+  );
 }
