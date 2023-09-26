@@ -20,7 +20,8 @@ let productoExistente = false; //variable bandera: si el productoExistente es fa
 //si  productoExistente es true quiero modificar el producto existente
 
 //Si hay productos el localStorage quiero guardarlos en listaProductos si no q sea un array vacio
-let listaProductos = JSON.parse(localStorage.getItem('arrayProductosKey')) || [];
+let listaProductos =
+  JSON.parse(localStorage.getItem('arrayProductosKey')) || [];
 
 //asociar un evento a cada elemento obtenido
 
@@ -53,7 +54,7 @@ formProducto.addEventListener('submit', guardarProducto);
 
 //llamo a carga inicial: so tengo productos en localStorage que lo muestre en la tabla de productos
 cargaInicial();
- 
+
 //aquí empieza la lógica del CRUD
 
 function guardarProducto(e) {
@@ -82,6 +83,9 @@ function guardarProducto(e) {
 }
 
 function crearProducto() {
+  //invocar una función codigoUnico() ---> retornar un código único
+  // const codUnico = codigoUnico()
+  //hacer que el campoCodigo este disable
   //crear un objeto producto
   let productoNuevo = new Producto(
     campoCodigo.value,
@@ -135,16 +139,81 @@ function crearFila(producto) {
   <td>${producto.cantidad}</td>
   <td>${producto.url}</td>
   <td>
-  <button class='btn btn-warning mb-3' onclick='prepararEdicionProducto()'>Editar</button>
+  <button class='btn btn-warning mb-3' onclick='prepararEdicionProducto("${producto.codigo}")'>Editar</button>
   <button class='btn btn-danger mb-3' onclick='borrarProducto()'>Eliminar</button>
   </td>
 </tr>`;
 }
 
-function cargaInicial(){
+function cargaInicial() {
   if (listaProductos.length > 0) {
     //crear filas
     listaProductos.map((itemProducto) => crearFila(itemProducto));
     //listaProductos.forEach((itemProducto) => crearFila(itemProducto));
   }
+}
+
+/* 
+al intentar acceder a una función que se invoca desde el html no la encuetra
+para solucionarlo agrego la función como un método del objeto globa window
+function prepararEdicionProducto(){
+   console.log('desde editar');
+}
+ */
+
+window.prepararEdicionProducto = function (codigo) {
+  //console.log('desde editar');
+  //console.log(codigo);
+  //buscar el prodcuto en el array de productos
+  let productoBuscado = listaProductos.find(
+    (itemProducto) => itemProducto.codigo === codigo
+  );
+  console.log(productoBuscado);
+
+  //mostrar el producto en el formulario. No se debe de poder editar le código
+  campoCodigo.value = productoBuscado.codigo;
+  campoProducto.value = productoBuscado.producto;
+  campoDescripcion.value = productoBuscado.descripcion;
+  campoCantidad.value = productoBuscado.cantidad;
+  campoURL.value = productoBuscado.url;
+
+  //modifico la variable bandera productoExistente
+  productoExistente = true;
+};
+
+function modificarProducto() {
+  console.log('desde modificar');
+  //encontrar la posición del elemento que quiero modificar dentro de mi array de productos
+  let indiceProducto = listaProductos.findIndex(
+    (itemProducto) => itemProducto.codigo === campoCodigo.value
+  );
+  console.log(indiceProducto);
+
+  //modificar los valores del elemento couyo indice encontramos
+  listaProductos[indiceProducto].producto = campoProducto.value;
+  listaProductos[indiceProducto].descripcion = campoDescripcion.value;
+  listaProductos[indiceProducto].cantidad = campoCantidad.value;
+  listaProductos[indiceProducto].url = campoURL.value;
+
+  //actualizar el localStorage
+  guadarLocalStorage();
+
+  //actualizar la tabla
+  borrarTabla();
+  cargaInicial();
+
+  //mostrar cartel al usuario
+  Swal.fire(
+    'Producto modificado!',
+    'El producto fue modificado correctamente!',
+    'success'
+  );
+
+  //limpiar formulario y reseta la variable bandera
+  limpiarFormulario();
+}
+
+function borrarTabla() {
+  let tablaProducto = document.querySelector('#tablaProducto');
+  tablaProducto.innerHTML = '';
 }
