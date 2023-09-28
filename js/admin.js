@@ -15,6 +15,7 @@ let campoDescripcion = document.getElementById('descripcion');
 let campoCantidad = document.getElementById('cantidad');
 let campoURL = document.getElementById('URL');
 let formProducto = document.getElementById('formProducto');
+let btnNuevo = document.getElementById('btnNuevo');
 
 let productoExistente = false; //variable bandera: si el productoExistente es false quiero crearlo,
 //si  productoExistente es true quiero modificar el producto existente
@@ -51,7 +52,7 @@ campoURL.addEventListener('blur', () => {
 });
 
 formProducto.addEventListener('submit', guardarProducto);
-
+btnNuevo.addEventListener('click', limpiarFormulario)
 //llamo a carga inicial: so tengo productos en localStorage que lo muestre en la tabla de productos
 cargaInicial();
 
