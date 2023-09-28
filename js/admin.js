@@ -16,6 +16,7 @@ let campoCantidad = document.getElementById('cantidad');
 let campoURL = document.getElementById('URL');
 let formProducto = document.getElementById('formProducto');
 let btnNuevo = document.getElementById('btnNuevo');
+let btnDatosPrueba = document.getElementById('btnDatosPrueba');
 
 let productoExistente = false; //variable bandera: si el productoExistente es false quiero crearlo,
 //si  productoExistente es true quiero modificar el producto existente
@@ -53,6 +54,8 @@ campoURL.addEventListener('blur', () => {
 
 formProducto.addEventListener('submit', guardarProducto);
 btnNuevo.addEventListener('click', limpiarFormulario);
+btnDatosPrueba.addEventListener('click', cargarDatosPrueba)
+
 //llamo a carga inicial: so tengo productos en localStorage que lo muestre en la tabla de productos
 cargaInicial();
 
@@ -269,4 +272,74 @@ window.borrarProducto = function (codigo) {
       );
     }
   });
+};
+
+
+function cargarDatosPrueba(){
+  const datos = [
+    {
+      codigo: "994",
+      producto: "Kakashi Hatake (Anbu)",
+      cantidad: "1",
+      descripcion:
+        "Funko Figura Pop Naruto Shippuden Kakashi Hatake (Anbu) (AAA Anime Exclusive)",
+      url: "https://m.media-amazon.com/images/I/51Mkr80aQqL._AC_SL1092_.jpg",
+    },
+    {
+      codigo: "933",
+      producto: "Shikamaru Nara",
+      cantidad: "1",
+      descripcion: "Naruto shippuden",
+      url: "https://m.media-amazon.com/images/I/51BitznofnL._AC_SL1300_.jpg",
+    },
+    {
+      codigo: "184",
+      producto: "Tobi",
+      cantidad: "1",
+      descripcion:
+        "Figura de Tobi de Naruto Shippuden de la marca FunKo POP Anime",
+      url: "https://m.media-amazon.com/images/I/51-H7QOsVES._AC_SL1200_.jpg",
+    },
+    {
+      codigo: "729",
+      producto: "Orochimaru",
+      cantidad: "1",
+      descripcion: "Orochimaru Figura Coleccionable, Multicolor (46628)",
+      url: "https://m.media-amazon.com/images/I/610cunP4zOL._AC_SL1200_.jpg",
+    },
+    {
+      codigo: "073",
+      producto: "Jiraiya On Toad",
+      cantidad: "1",
+      descripcion:
+        "Jiraiya On Toad Anime Figura De Acción Juguetes 73 Colección Modelo De Personaje Estatua 10 Cm En Caja",
+      url: "https://m.media-amazon.com/images/I/61sLJuTZxBS._AC_SL1500_.jpg",
+    },
+    {
+      codigo: "728",
+      producto: "Gaara ",
+      cantidad: "1",
+      descripcion: "Gaara Figura Coleccionable, Multicolor (46627)",
+      url: "https://m.media-amazon.com/images/I/616YRHWRZwL._AC_SL1200_.jpg",
+    },
+    {
+      codigo: "182",
+      producto: "Kakashi Figure",
+      cantidad: "1",
+      descripcion:
+        'Funko FM-B01M5KD9Y6 Naruto Shippuden 12450"POP Vinyl Kakashi Figure',
+      url: "https://m.media-amazon.com/images/I/617XvrkXkEL._AC_SL1360_.jpg",
+    },
+  ];
+
+ if (!localStorage.getItem("arrayProductosKey")) {
+   // quiero agregar los datos de productos
+   console.log('cargar datos prueba');
+   localStorage.setItem("arrayProductosKey", JSON.stringify(datos));
+   listaProductos = datos;
+   //mostar en la tabla
+   listaProductos.forEach(itemProducto => {
+     crearFila(itemProducto);
+   })
+ }
 };
